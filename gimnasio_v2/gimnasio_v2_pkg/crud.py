@@ -1,12 +1,7 @@
-# crud.py
-# Operaciones de alta, consulta, modificación, eliminación y listado
-# de registros (socios) sobre la matriz del sistema.
-
 import validaciones
 
 
 def buscar_indice_por_numero(matriz, numero):
-    """Devuelve el índice del socio con ese número, o -1 si no existe."""
     for i in range(len(matriz)):
         if matriz[i][0] == numero:
             return i
@@ -14,7 +9,7 @@ def buscar_indice_por_numero(matriz, numero):
 
 
 def alta_socio(matriz, actividades, estados):
-    """Solicita los datos de un nuevo socio y lo agrega a la matriz."""
+
     print("\n--- Alta de socio ---")
 
     numero = validaciones.pedir_entero("Ingrese número de socio: ")
@@ -33,7 +28,6 @@ def alta_socio(matriz, actividades, estados):
 
 
 def consultar_socio(matriz):
-    """Busca un socio por número y muestra todos sus datos."""
     print("\n--- Consulta de socio ---")
     numero = validaciones.pedir_entero("Ingrese el número de socio a consultar: ")
     indice = buscar_indice_por_numero(matriz, numero)
@@ -51,7 +45,6 @@ def consultar_socio(matriz):
 
 
 def modificar_socio(matriz, actividades, estados):
-    """Busca un socio y permite modificar uno o más de sus datos."""
     print("\n--- Modificación de socio ---")
     numero = validaciones.pedir_entero("Ingrese el número de socio a modificar: ")
     indice = buscar_indice_por_numero(matriz, numero)
@@ -85,7 +78,6 @@ def modificar_socio(matriz, actividades, estados):
 
 
 def eliminar_socio(matriz):
-    """Busca un socio por número y lo elimina de la matriz."""
     print("\n--- Eliminación de socio ---")
     numero = validaciones.pedir_entero("Ingrese el número de socio a eliminar: ")
     indice = buscar_indice_por_numero(matriz, numero)
@@ -104,12 +96,7 @@ def eliminar_socio(matriz):
 
 
 def completar_texto(texto, ancho):
-    """
-    Recibe un texto y un ancho determinado.
-    Devuelve el texto completado con espacios a la derecha
-    hasta alcanzar ese ancho. Si el texto ya es más largo
-    que el ancho, se corta para no romper la alineación.
-    """
+
     texto = str(texto)
     if len(texto) > ancho:
         return texto[:ancho]
@@ -117,11 +104,7 @@ def completar_texto(texto, ancho):
 
 
 def mostrar_socios(matriz, ancho_descripcion):
-    """
-    Muestra la matriz en formato tabular.
-    Todas las columnas se alinean usando completar_texto(),
-    con la de descripción usando un ancho fijo definido aparte.
-    """
+
     encabezado = (
         completar_texto("ID", 4)
         + completar_texto("Nombre", 15)
@@ -143,7 +126,7 @@ def mostrar_socios(matriz, ancho_descripcion):
         )
         print(linea)
 def consultar_por_actividad(matriz, actividades):
-    """Pide una actividad y muestra los socios que pertenecen a ella."""
+
     actividad = validaciones.elegir_categoria(actividades, "Seleccione la actividad a consultar:")
     encontrados = []
     for socio in matriz:

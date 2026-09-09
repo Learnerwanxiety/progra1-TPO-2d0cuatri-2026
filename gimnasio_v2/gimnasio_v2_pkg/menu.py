@@ -1,13 +1,8 @@
-# menu.py
-# Presentación y gestión de opciones del menú principal del sistema.
-
 import crud
 import estadisticas
 import validaciones
 
-
 def mostrar_menu():
-    """Imprime las opciones del menú principal."""
     print("\n===== GESTIÓN DE GIMNASIO =====")
     print("1. Dar de alta un socio")
     print("2. Consultar un socio")
@@ -18,13 +13,8 @@ def mostrar_menu():
     print("7. Ver estadísticas")
     print("8. Salir")
 
-
 def ejecutar_menu(matriz, actividades, estados):
-    """
-    Bucle principal del sistema: muestra el menú, valida la opción
-    ingresada y ejecuta la funcionalidad correspondiente hasta que
-    el usuario decida salir.
-    """
+
     opcion = ""
     while opcion != "8":
         mostrar_menu()

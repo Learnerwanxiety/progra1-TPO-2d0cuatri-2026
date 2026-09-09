@@ -1,7 +1,3 @@
-# aplicacion.py
-# Programa principal: inicializa los datos y coordina el funcionamiento
-# del sistema de gestión de gimnasio.
-
 import datos
 import menu
 

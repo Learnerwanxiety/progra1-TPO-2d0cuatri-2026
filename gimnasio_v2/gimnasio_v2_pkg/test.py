@@ -1,10 +1,5 @@
 def completar_texto(texto, ancho):
-    """
-    Recibe un texto y un ancho determinado.
-    Devuelve el texto completado con espacios a la derecha
-    hasta alcanzar ese ancho. Si el texto ya es más largo
-    que el ancho, se corta para no romper la alineación.
-    """
+
     texto = str(texto)
     if len(texto) > ancho:
         return texto[:ancho]
@@ -12,11 +7,7 @@ def completar_texto(texto, ancho):
 
 
 def mostrar_matriz(matriz, ancho_descripcion=12):
-    """
-    Muestra la matriz en formato tabular.
-    Todas las columnas se alinean usando completar_texto(),
-    con la de descripción usando un ancho fijo definido aparte.
-    """
+
     encabezado = (
         completar_texto("ID", 4)
         + completar_texto("Nombre", 15)

@@ -1,16 +1,13 @@
-# estadisticas.py
-# Cálculos y procesamiento estadístico sobre la matriz de socios.
-
 import validaciones
 
 
 def cantidad_total(matriz):
-    """Devuelve la cantidad total de socios registrados."""
+
     return len(matriz)
 
 
 def cantidad_por_actividad(matriz, actividad):
-    """Devuelve la cantidad de socios que practican una actividad dada."""
+
     contador = 0
     for socio in matriz:
         if socio[2] == actividad:
@@ -19,7 +16,7 @@ def cantidad_por_actividad(matriz, actividad):
 
 
 def cantidad_por_estado(matriz, estado):
-    """Devuelve la cantidad de socios que se encuentran en un estado dado."""
+
     contador = 0
     for socio in matriz:
         if socio[4] == estado:
@@ -28,7 +25,7 @@ def cantidad_por_estado(matriz, estado):
 
 
 def cuota_promedio(matriz):
-    """Calcula el valor promedio de las cuotas de todos los socios."""
+
     if len(matriz) == 0:
         return 0
     total = 0
@@ -38,7 +35,6 @@ def cuota_promedio(matriz):
 
 
 def actividad_mas_popular(matriz, actividades):
-    """Devuelve la actividad con más socios y su cantidad."""
     max_cantidad = -1
     actividad_top = ""
     for actividad in actividades:
@@ -50,7 +46,6 @@ def actividad_mas_popular(matriz, actividades):
 
 
 def mostrar_estadisticas(matriz, actividades):
-    """Muestra por pantalla la información estadística del sistema."""
     print("\n--- Estadísticas del gimnasio ---")
     print("Cantidad total de socios:", cantidad_total(matriz))
 

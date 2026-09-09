@@ -14,8 +14,6 @@ def alta(registros):
 
     return registros
 
-
-
 def consulta (registros):
     nombre_usuario = input("Ingrese el nombre del usuario: ")
     for i in range(len(registros)):
@@ -25,8 +23,6 @@ def consulta (registros):
 
 def modificar_socio(socios):
     id_buscar = int(input("Ingrese el ID del socio a modificar: "))
-    
-    # Recorremos la matriz buscando el ID
     for i in range(len(socios)):
         if socios[i][0] == id_buscar:
             print("\nSocio encontrado: " + str(socios[i]))
