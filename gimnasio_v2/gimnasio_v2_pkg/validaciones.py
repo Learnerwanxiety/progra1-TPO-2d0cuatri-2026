@@ -26,6 +26,8 @@ def opcion_valida(opcion, minimo, maximo):
         return False
     numero = int(opcion)
     return minimo <= numero <= maximo
+    #Evalúa si numero es mayor o igual que minimo y menor
+    # o igual que maximo. Retorna True si está dentro del rango o False si está fuera.
 
 
 def numero_socio_repetido(matriz, numero):

@@ -55,7 +55,7 @@ def mostrar_estadisticas(matriz, actividades):
 
     print("Cantidad de socios activos:", cantidad_por_estado(matriz, "Activo"))
     print("Cantidad de socios inactivos:", cantidad_por_estado(matriz, "Inactivo"))
-    print("Valor promedio de cuota: $" + str(round(cuota_promedio(matriz), 2)))
-
+    print("Valor promedio de cuota: $%.0f" % cuota_promedio(matriz))
+    
     top, cantidad_top = actividad_mas_popular(matriz, actividades)
     print("Actividad más popular:", top, "con", cantidad_top, "socios")
