@@ -57,12 +57,22 @@ def es_decimal(texto):
     sin_signo = ""
     for i in range(inicio, len(texto)):
         sin_signo += texto[i]
+    contador_puntos = 0
+    parte_entera = ""
+    parte_decimal = ""
 
-    partes = sin_signo.split(".")
-    if len(partes) == 1:
-        return partes[0] != "" and son_digitos(partes[0])
-    if len(partes) == 2:
-        return son_digitos(partes[0]) and son_digitos(partes[1]) and partes[0] != "" and partes[1] != ""
+    for caracter in sin_signo:
+        if caracter == ".":
+            contador_puntos += 1
+        elif contador_puntos == 0:
+            parte_entera += caracter
+        elif contador_puntos == 1:
+            parte_decimal += caracter
+
+    if contador_puntos == 0:
+        return parte_entera != "" and son_digitos(parte_entera)
+    if contador_puntos == 1:
+        return parte_entera != "" and parte_decimal != "" and son_digitos(parte_entera) and son_digitos(parte_decimal)
     return False
 
 
