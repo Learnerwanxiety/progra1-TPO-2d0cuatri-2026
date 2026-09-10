@@ -1,33 +1,76 @@
+def quitar_espacios(texto):
+    inicio = 0
+    while inicio < len(texto) and (texto[inicio] == " " or texto[inicio] == "\t" or texto[inicio] == "\n"):
+        inicio += 1
+
+    fin = len(texto) - 1
+    while fin >= inicio and (texto[fin] == " " or texto[fin] == "\t" or texto[fin] == "\n"):
+        fin -= 1
+
+    resultado = ""
+    for i in range(inicio, fin + 1):
+        resultado += texto[i]
+    return resultado
+
+
+def son_digitos(texto):
+    if len(texto) == 0:
+        return False
+    digitos = "0123456789"
+    for caracter in texto:
+        if caracter not in digitos:
+            return False
+    return True
+
+
 def es_entero(texto):
-    texto = texto.strip()
+    texto = quitar_espacios(texto)
     if texto == "":
         return False
+
+    inicio = 0
     if texto[0] == "-":
-        texto = texto[1:]
-    if texto == "":
+        inicio = 1
+
+    if inicio >= len(texto):
         return False
-    return texto.isdigit()
+
+    sin_signo = ""
+    for i in range(inicio, len(texto)):
+        sin_signo += texto[i]
+
+    return son_digitos(sin_signo)
+
 
 def es_decimal(texto):
-    texto = texto.strip()
+    texto = quitar_espacios(texto)
     if texto == "":
         return False
+
+    inicio = 0
     if texto[0] == "-":
-        texto = texto[1:]
-    partes = texto.split(".")
+        inicio = 1
+
+    if inicio >= len(texto):
+        return False
+
+    sin_signo = ""
+    for i in range(inicio, len(texto)):
+        sin_signo += texto[i]
+
+    partes = sin_signo.split(".")
     if len(partes) == 1:
-        return partes[0] != "" and partes[0].isdigit()
+        return partes[0] != "" and son_digitos(partes[0])
     if len(partes) == 2:
-        return partes[0].isdigit() and partes[1].isdigit() and partes[0] != "" and partes[1] != ""
+        return son_digitos(partes[0]) and son_digitos(partes[1]) and partes[0] != "" and partes[1] != ""
     return False
+
 
 def opcion_valida(opcion, minimo, maximo):
     if not es_entero(opcion):
         return False
     numero = int(opcion)
     return minimo <= numero <= maximo
-    #Evalúa si numero es mayor o igual que minimo y menor
-    # o igual que maximo. Retorna True si está dentro del rango o False si está fuera.
 
 
 def numero_socio_repetido(matriz, numero):
@@ -70,7 +113,7 @@ def pedir_decimal(mensaje):
 
 def pedir_texto_no_vacio(mensaje):
     texto = input(mensaje)
-    while texto.strip() == "":
+    while quitar_espacios(texto) == "":
         print("El dato no puede estar vacío.")
         texto = input(mensaje)
     return texto

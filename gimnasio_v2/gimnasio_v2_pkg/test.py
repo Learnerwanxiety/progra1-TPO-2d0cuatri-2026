@@ -1,8 +1,10 @@
 def completar_texto(texto, ancho):
-
     texto = str(texto)
     if len(texto) > ancho:
-        return texto[:ancho]
+        resultado = ""
+        for i in range(ancho):
+            resultado += texto[i]
+        return resultado
     return texto + " " * (ancho - len(texto))
 
 
