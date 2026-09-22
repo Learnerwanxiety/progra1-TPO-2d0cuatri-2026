@@ -1,9 +1,10 @@
 import principal
 import datos
+import validaciones
 
-opcion = -1
+opcion_texto = ""
 
-while opcion != 0:
+while opcion_texto != "0":
     print("---" * 20)
     print("1- Mostrar todos los registros")
     print("2- Consultar un registro por código")
@@ -16,16 +17,21 @@ while opcion != 0:
     print("0- Salir")
     print("---" * 20)
 
-    opcion = int(input("Ingrese una opción: "))
+    opcion_texto = input("Ingrese una opción: ")
+    while validaciones.opcion_valida(opcion_texto) == False:
+        print("Opción inválida")
+        opcion_texto = input("Ingrese una opción: ")
+
+    opcion = int(opcion_texto)
 
     if opcion == 1:
         principal.mostrar_registros(datos.matriz_peliculas)
 
     elif opcion == 2:
-        principal.busqueda_codigo (datos.matriz_peliculas)
+        principal.busqueda_codigo(datos.matriz_peliculas)
 
     elif opcion == 3:
-        print("Generar una vista previa del texto")
+        principal.generar_vista_previa(datos.matriz_peliculas)
 
     elif opcion == 4:
         print("Normalizar y transformar un texto")
@@ -44,9 +50,3 @@ while opcion != 0:
 
     elif opcion == 0:
         print("Programa finalizado.")
-
-    else:
-        print("Opción inválida.")
-        
-    
-
