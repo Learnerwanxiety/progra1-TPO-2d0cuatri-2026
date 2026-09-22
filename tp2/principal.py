@@ -1,20 +1,12 @@
 import datos
 import validaciones
-
+import tp2.utilidades as utilidades
 """ MOSTRAR DATOS """
 ANCHO_CODIGO = 8
 ANCHO_NOMBRE = 24
 ANCHO_TEMA = 18
 ANCHO_PUNTUACION = 12
 ANCHO_DESCRIPCION = 35
-
-
-def abreviar_texto(texto, ancho):
-    # Si el texto no entra en el ancho, lo corta y le agrega "..." (usando slicing)
-    if len(texto) > ancho:
-        return texto[:ancho - 3] + "..."
-    else:
-        return texto
 
 
 def mostrar_registros(matriz_peliculas):
@@ -26,7 +18,7 @@ def mostrar_registros(matriz_peliculas):
         nombre = matriz_peliculas[i][1]
         tema = matriz_peliculas[i][2]
         puntuacion = matriz_peliculas[i][3]
-        descripcion = abreviar_texto(matriz_peliculas[i][4], ANCHO_DESCRIPCION)
+        descripcion = utilidades.abreviar_texto(matriz_peliculas[i][4], ANCHO_DESCRIPCION)
         print(f"{codigo:<{ANCHO_CODIGO}} {nombre:<{ANCHO_NOMBRE}} {tema:<{ANCHO_TEMA}} {puntuacion:<{ANCHO_PUNTUACION}} {descripcion:<{ANCHO_DESCRIPCION}}")
     print("-" * 100)
 
