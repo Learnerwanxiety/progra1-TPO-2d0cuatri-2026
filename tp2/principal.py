@@ -1,5 +1,6 @@
 import datos
 import validaciones
+import utilidades
 
 """ MOSTRAR DATOS """
 ANCHO_CODIGO = 8
@@ -92,3 +93,24 @@ def generar_vista_previa(matriz_peliculas):
         print(f"Primeros {cantidad} caracteres:", inicio)
         print(f"Ultimos {cantidad} caracteres:", final)
         print("-" * 40)
+
+""" PEDIR TEXTO A NORMALIZAR (punto 4) """
+def cambiar_texto(matriz_peliculas):
+    codigo = pedir_codigo()
+    registro = buscar_registro(matriz_peliculas, codigo)
+    if registro is None:
+        print("Codigo no encontrado")
+    else:
+        print("Texto original:", registro[4])
+        contenido_a_reemplazar = input("Ingrese la palabra o expresión a reemplazar: ")
+        nuevo_contenido = input("Ingrese el nuevo contenido: ")
+        texto_transformado = utilidades.capitalizar_texto(
+            utilidades.normalizar_texto(registro[4])
+            .replace(
+                utilidades.normalizar_texto(contenido_a_reemplazar),
+                utilidades.normalizar_texto(nuevo_contenido)))
+        print("Texto original:", registro[4])
+        print("Texto transformado:", texto_transformado)
+        registro[4] = texto_transformado
+        index = matriz_peliculas.index(registro)
+        matriz_peliculas[index] = registro

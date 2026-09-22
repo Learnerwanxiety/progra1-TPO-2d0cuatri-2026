@@ -34,7 +34,7 @@ while opcion_texto != "0":
         principal.generar_vista_previa(datos.matriz_peliculas)
 
     elif opcion == 4:
-        print("Normalizar y transformar un texto")
+        principal.cambiar_texto(datos.matriz_peliculas)
 
     elif opcion == 5:
         print("Consultar registros por palabra o expresión")
