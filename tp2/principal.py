@@ -1,8 +1,5 @@
 """
 Módulo principal del sistema de Reseñas de películas y series.
-Contiene esta entrega: funcionalidades 6 (Separar y reconstruir un
-texto), 7 (Consultar registros por categoría) y 8 (Procesamiento
-estadístico).
 """
 
 import datos
@@ -15,7 +12,6 @@ import menu
 
 
 def procesar_separacion_texto(matriz):
-    """Funcionalidad 6: separa en palabras la reseña de un registro y la reconstruye."""
     codigo = validaciones.solicitar_codigo_valido(matriz)
     registro = consultas.buscar_por_codigo(matriz, codigo)
     resena = registro[4]
@@ -33,7 +29,6 @@ def procesar_separacion_texto(matriz):
 
 
 def procesar_consulta_por_categoria(matriz):
-    """Funcionalidad 7: filtra y muestra los registros del género elegido por el usuario."""
     generos_disponibles = consultas.obtener_generos_disponibles(matriz)
     genero_elegido = validaciones.solicitar_genero_valido(generos_disponibles)
     matriz_filtrada = consultas.filtrar_por_genero(matriz, genero_elegido)
@@ -46,7 +41,6 @@ def procesar_consulta_por_categoria(matriz):
 
 
 def procesar_estadisticas(matriz):
-    """Funcionalidad 8."""
     total = estadisticas.contar_registros(matriz)
     print(f"\nCantidad total de registros: {total}")
 
@@ -66,7 +60,6 @@ def procesar_estadisticas(matriz):
 
 
 def ejecutar_programa():
-    """Muestra el menú y ejecuta la opción elegida hasta que el usuario decida salir."""
     matriz = datos.obtener_registros()
     opcion = -1
     while opcion != 0:
