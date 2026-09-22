@@ -46,7 +46,7 @@ def procesar_consulta_por_categoria(matriz):
 
 
 def procesar_estadisticas(matriz):
-    """Funcionalidad 8: calcula y muestra las estadísticas del sistema."""
+    """Funcionalidad 8."""
     total = estadisticas.contar_registros(matriz)
     print(f"\nCantidad total de registros: {total}")
 
