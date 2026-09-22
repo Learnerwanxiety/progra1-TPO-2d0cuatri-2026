@@ -1,41 +1,27 @@
-- El nombre debe contener solamente letras y tener al menos 3 caracteres.
-- El legajo debe contener solamente números.
-- El nombre de usuario debe contener solamente letras y números y tener al menos 6 caracteres.
-'''
+def opcion_valida(opcion):
+    # Valida que la opcion del menu sea un numero entero entre 0 y 8
+    if opcion.isdigit() and int(opcion) >= 0 and int(opcion) <= 8:
+        return True
+    else:
+        return False
 
-def validar_nombre(nombre):
-    valido = False
-    if nombre.isalpha() and len(nombre) >= 3:
-        valido = True
-    return valido
 
-def validar_legajo(legajo):
-    return legajo.isdigit()
+def es_numero(texto):
+    # Valida que el texto ingresado sea numerico (sirve para codigos y cantidades)
+    return texto.isdigit()
 
-def validar_usuario(usuario):
-    valido = False
-    if usuario.isalnum() and len(usuario) >= 6:
-        valido = True
-    return valido
 
-# Programa principal
-nombre = input("Ingrese nombre (3 o más letras): ")
-while not validar_nombre(nombre):
-    print("Nombre inválido, debe tener 3 o más letras.")
-    nombre = input("Ingrese nombre (3 o más letras): ")
+def categoria_valida(categoria, cantidad_categorias):
+    # Valida que la opcion de categoria elegida este dentro del rango disponible
+    if categoria.isdigit() and int(categoria) >= 1 and int(categoria) <= cantidad_categorias:
+        return True
+    else:
+        return False
 
-legajo = input("Ingrese legajo (solo números): ")
-while not validar_legajo(legajo):
-    print("Legajo inválido, debe tener solamente números.")
-    legajo = input("Ingrese legajo (solo números): ")
 
-usuario = input("Ingrese nombre de usuario (6 o más caracteres, solamente letras y números): ")
-while not validar_usuario(usuario):
-    print("Nombre de usuario inválido, debe contener 6 o más caracteres y solamente letras y números.")    
-    usuario = input("Ingrese nombre de usuario (6 o más caracteres, solamente letras y números): ")
-
-print("-"*30)
-print("Nombre:", nombre)
-print("Legajo:", legajo)
-print("Usuario:", usuario)
-print("-"*30)
+def palabra_valida(palabra):
+    # Valida que se haya ingresado algo (no vacio ni solo espacios) para buscar
+    if palabra.strip() == "":
+        return False
+    else:
+        return True
