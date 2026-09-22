@@ -72,16 +72,16 @@ def ejecutar_programa():
     while opcion != 0:
         menu.mostrar_menu()
         opcion_str = input("Seleccione una opción: ")
-        while not (opcion_str.isdigit() and opcion_str in ("0", "6", "7", "8")):
+        while not (opcion_str.isdigit() and opcion_str in ("0", "1", "2", "3")):
             print("Opción inválida. Intente nuevamente.")
             opcion_str = input("Seleccione una opción: ")
         opcion = int(opcion_str)
 
-        if opcion == 6:
+        if opcion == 1:
             procesar_separacion_texto(matriz)
-        elif opcion == 7:
+        elif opcion == 2:
             procesar_consulta_por_categoria(matriz)
-        elif opcion == 8:
+        elif opcion == 3:
             procesar_estadisticas(matriz)
 
 
