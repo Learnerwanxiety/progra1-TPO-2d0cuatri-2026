@@ -5,13 +5,6 @@ Temática: Reseñas de películas y series.
 
 
 def obtener_registros():
-    """
-    Retorna la matriz con los 10 registros iniciales de reseñas de
-    películas y series.
-
-    Cada registro tiene el formato:
-    [Código, Título, Género, Puntuación, Reseña]
-    """
     registros = [
         [101, "El viaje interminable", "Drama", "4",
          "Una historia profunda con actuaciones memorables y un final que emociona"],
