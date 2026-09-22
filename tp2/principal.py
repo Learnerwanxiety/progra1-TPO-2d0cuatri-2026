@@ -1,6 +1,6 @@
 import datos
 import validaciones
-import tp2.utilidades as utilidades
+import cadenas
 """ MOSTRAR DATOS """
 ANCHO_CODIGO = 8
 ANCHO_NOMBRE = 24
@@ -18,7 +18,7 @@ def mostrar_registros(matriz_peliculas):
         nombre = matriz_peliculas[i][1]
         tema = matriz_peliculas[i][2]
         puntuacion = matriz_peliculas[i][3]
-        descripcion = utilidades.abreviar_texto(matriz_peliculas[i][4], ANCHO_DESCRIPCION)
+        descripcion = cadenas.abreviar_texto(matriz_peliculas[i][4], ANCHO_DESCRIPCION)
         print(f"{codigo:<{ANCHO_CODIGO}} {nombre:<{ANCHO_NOMBRE}} {tema:<{ANCHO_TEMA}} {puntuacion:<{ANCHO_PUNTUACION}} {descripcion:<{ANCHO_DESCRIPCION}}")
     print("-" * 100)
 
