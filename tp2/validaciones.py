@@ -7,10 +7,6 @@ import consultas
 
 
 def solicitar_codigo_valido(matriz):
-    """
-    Solicita un código por teclado y lo valida contra la matriz,
-    repitiendo la solicitud hasta que se ingrese un código existente.
-    """
     codigo_str = input("Ingrese el código del registro: ")
     while not (codigo_str.isdigit() and consultas.existe_codigo(matriz, int(codigo_str))):
         print("El código ingresado no existe. Intente nuevamente.")
@@ -19,11 +15,6 @@ def solicitar_codigo_valido(matriz):
 
 
 def solicitar_genero_valido(generos_disponibles):
-    """
-    Muestra los géneros disponibles numerados y solicita al usuario que
-    seleccione uno válido, repitiendo la solicitud ante una opción
-    fuera de rango.
-    """
     print("\nGéneros disponibles:")
     indice = 0
     while indice < len(generos_disponibles):
