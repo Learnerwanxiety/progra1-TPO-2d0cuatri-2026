@@ -32,3 +32,26 @@ def filtrar_por_genero(matriz, genero):
         if registro[2] == genero:
             matriz_filtrada.append(registro)
     return matriz_filtrada
+
+
+def contiene_palabra(texto, palabra):
+    return palabra.lower() in texto.lower()
+
+
+def contar_apariciones(texto, palabra):
+    return texto.lower().count(palabra.lower())
+
+
+def filtrar_por_palabra(matriz, palabra):
+    matriz_filtrada = []
+    for registro in matriz:
+        if contiene_palabra(registro[4], palabra):
+            matriz_filtrada.append(registro)
+    return matriz_filtrada
+
+
+def contar_apariciones_totales(matriz, palabra):
+    total = 0
+    for registro in matriz:
+        total += contar_apariciones(registro[4], palabra)
+    return total
