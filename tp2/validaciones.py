@@ -1,27 +1,29 @@
-def opcion_valida(opcion):
-    # Valida que la opcion del menu sea un numero entero entre 0 y 8
-    if opcion.isdigit() and int(opcion) >= 0 and int(opcion) <= 8:
-        return True
-    else:
-        return False
+"""
+Módulo encargado de solicitar y validar los datos ingresados por el
+usuario durante la ejecución del programa.
+"""
+
+import consultas
 
 
-def es_numero(texto):
-    # Valida que el texto ingresado sea numerico (sirve para codigos y cantidades)
-    return texto.isdigit()
+def solicitar_codigo_valido(matriz):
+    codigo_str = input("Ingrese el código del registro: ")
+    while not (codigo_str.isdigit() and consultas.existe_codigo(matriz, int(codigo_str))):
+        print("El código ingresado no existe. Intente nuevamente.")
+        codigo_str = input("Ingrese el código del registro: ")
+    return int(codigo_str)
 
 
-def categoria_valida(categoria, cantidad_categorias):
-    # Valida que la opcion de categoria elegida este dentro del rango disponible
-    if categoria.isdigit() and int(categoria) >= 1 and int(categoria) <= cantidad_categorias:
-        return True
-    else:
-        return False
+def solicitar_genero_valido(generos_disponibles):
+    print("\nGéneros disponibles:")
+    indice = 0
+    while indice < len(generos_disponibles):
+        print(f"{indice + 1}. {generos_disponibles[indice]}")
+        indice += 1
 
+    opcion_str = input("Seleccione el número de género: ")
+    while not (opcion_str.isdigit() and 1 <= int(opcion_str) <= len(generos_disponibles)):
+        print("Opción inválida. Intente nuevamente.")
+        opcion_str = input("Seleccione el número de género: ")
 
-def palabra_valida(palabra):
-    # Valida que se haya ingresado algo (no vacio ni solo espacios) para buscar
-    if palabra.strip() == "":
-        return False
-    else:
-        return True
+    return generos_disponibles[int(opcion_str) - 1]

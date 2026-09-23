@@ -1,116 +1,81 @@
+"""
+Módulo principal del sistema de Reseñas de películas y series.
+"""
+
 import datos
+import consultas
+import cadenas
+import estadisticas
 import validaciones
-import utilidades
-
-""" MOSTRAR DATOS """
-ANCHO_CODIGO = 8
-ANCHO_NOMBRE = 24
-ANCHO_TEMA = 18
-ANCHO_PUNTUACION = 12
-ANCHO_DESCRIPCION = 35
+import presentacion
+import menu
 
 
-def abreviar_texto(texto, ancho):
-    # Si el texto no entra en el ancho, lo corta y le agrega "..." (usando slicing)
-    if len(texto) > ancho:
-        return texto[:ancho - 3] + "..."
+def procesar_separacion_texto(matriz):
+    codigo = validaciones.solicitar_codigo_valido(matriz)
+    registro = consultas.buscar_por_codigo(matriz, codigo)
+    resena = registro[4]
+    palabras = cadenas.separar_en_palabras(resena)
+
+    print(f"\nTexto original: {resena}")
+    print(f"Cantidad de palabras: {len(palabras)}")
+    print("Palabras obtenidas:")
+    for palabra in palabras:
+        print(f"- {palabra}")
+
+    separador = input("Ingrese el separador para reconstruir el texto (por ejemplo, '-'): ")
+    texto_reconstruido = cadenas.reconstruir_texto(palabras, separador)
+    print(f"Texto reconstruido: {texto_reconstruido}")
+
+
+def procesar_consulta_por_categoria(matriz):
+    generos_disponibles = consultas.obtener_generos_disponibles(matriz)
+    genero_elegido = validaciones.solicitar_genero_valido(generos_disponibles)
+    matriz_filtrada = consultas.filtrar_por_genero(matriz, genero_elegido)
+
+    if len(matriz_filtrada) > 0:
+        print(f"\nRegistros del género '{genero_elegido}':")
+        presentacion.mostrar_tabla(matriz_filtrada)
     else:
-        return texto
+        print(f"\nNo existen registros del género '{genero_elegido}'.")
 
 
-def mostrar_registros(matriz_peliculas):
-    print("-" * 100)
-    print(f"{'CODIGO':<{ANCHO_CODIGO}} {'NOMBRE':<{ANCHO_NOMBRE}} {'TEMA':<{ANCHO_TEMA}} {'PUNTUACION':<{ANCHO_PUNTUACION}} {'DESCRIPCION':<{ANCHO_DESCRIPCION}}")
-    print("-" * 100)
-    for i in range(len(matriz_peliculas)):
-        codigo = matriz_peliculas[i][0]
-        nombre = matriz_peliculas[i][1]
-        tema = matriz_peliculas[i][2]
-        puntuacion = matriz_peliculas[i][3]
-        descripcion = abreviar_texto(matriz_peliculas[i][4], ANCHO_DESCRIPCION)
-        print(f"{codigo:<{ANCHO_CODIGO}} {nombre:<{ANCHO_NOMBRE}} {tema:<{ANCHO_TEMA}} {puntuacion:<{ANCHO_PUNTUACION}} {descripcion:<{ANCHO_DESCRIPCION}}")
-    print("-" * 100)
+def procesar_estadisticas(matriz):
+    total = estadisticas.contar_registros(matriz)
+    print(f"\nCantidad total de registros: {total}")
+
+    generos_disponibles = consultas.obtener_generos_disponibles(matriz)
+    genero_elegido = validaciones.solicitar_genero_valido(generos_disponibles)
+    cantidad_genero = estadisticas.contar_por_genero(matriz, genero_elegido)
+    print(f"Cantidad de registros del género '{genero_elegido}': {cantidad_genero}")
+
+    promedio_punt = estadisticas.promedio_puntuacion(matriz)
+    print(f"Promedio de puntuación: {promedio_punt:.2f}")
+
+    promedio_long = estadisticas.promedio_longitud_texto(matriz)
+    print(f"Longitud promedio de las reseñas: {promedio_long:.2f} caracteres")
+
+    registro_largo = estadisticas.registro_texto_mas_largo(matriz)
+    print(f"Registro con la reseña más larga: [{registro_largo[0]}] {registro_largo[1]}")
 
 
-""" BUSQUEDA (reutilizable por consulta y vista previa) """
-def buscar_registro(matriz_peliculas, codigo):
-    # Recorre la matriz y devuelve el REGISTRO encontrado (la fila completa), o None si no existe
-    registro_encontrado = None
-    for i in range(len(matriz_peliculas)):
-        if matriz_peliculas[i][0] == codigo:
-            registro_encontrado = matriz_peliculas[i]
-    return registro_encontrado
+def ejecutar_programa():
+    matriz = datos.obtener_registros()
+    opcion = -1
+    while opcion != 0:
+        menu.mostrar_menu()
+        opcion_str = input("Seleccione una opción: ")
+        while not (opcion_str.isdigit() and opcion_str in ("0", "1", "2", "3")):
+            print("Opción inválida. Intente nuevamente.")
+            opcion_str = input("Seleccione una opción: ")
+        opcion = int(opcion_str)
+
+        if opcion == 1:
+            procesar_separacion_texto(matriz)
+        elif opcion == 2:
+            procesar_consulta_por_categoria(matriz)
+        elif opcion == 3:
+            procesar_estadisticas(matriz)
 
 
-def pedir_codigo():
-    # Pide un codigo por teclado y valida que sea numerico (no vacio, no letras)
-    codigo_texto = input("Ingrese el codigo: ")
-    while validaciones.es_numero(codigo_texto) == False:
-        print("El codigo debe ser un numero")
-        codigo_texto = input("Ingrese el codigo: ")
-    return int(codigo_texto)
-
-
-""" CONSULTAR REGISTRO (punto 2) """
-def busqueda_codigo(matriz_peliculas):
-    codigo = pedir_codigo()
-    registro = buscar_registro(matriz_peliculas, codigo)
-
-    if registro is None:
-        print("Codigo no encontrado")
-    else:
-        print("-" * 40)
-        print("Codigo:", registro[0])
-        print("Nombre:", registro[1])
-        print("Tema:", registro[2])
-        print("Puntuacion:", registro[3])
-        print("Reseña:", registro[4])
-        print("-" * 40)
-
-
-""" VISTA PREVIA DEL TEXTO (punto 3) """
-def generar_vista_previa(matriz_peliculas):
-    codigo = pedir_codigo()
-    registro = buscar_registro(matriz_peliculas, codigo)
-
-    if registro is None:
-        print("Codigo no encontrado")
-    else:
-        reseña = registro[4]
-
-        cantidad_texto = input("Cuantos caracteres desea ver del inicio y del final: ")
-        while validaciones.es_numero(cantidad_texto) == False:
-            print("Debe ingresar un numero")
-            cantidad_texto = input("Cuantos caracteres desea ver del inicio y del final: ")
-        cantidad = int(cantidad_texto)
-
-        # Extraccion con indices y slicing, tal como pide la consigna
-        inicio = reseña[:cantidad]     # primeros "cantidad" caracteres
-        final = reseña[-cantidad:]     # ultimos "cantidad" caracteres
-
-        print("-" * 40)
-        print("Texto completo:", reseña)
-        print(f"Primeros {cantidad} caracteres:", inicio)
-        print(f"Ultimos {cantidad} caracteres:", final)
-        print("-" * 40)
-
-""" PEDIR TEXTO A NORMALIZAR (punto 4) """
-def cambiar_texto(matriz_peliculas):
-    codigo = pedir_codigo()
-    registro = buscar_registro(matriz_peliculas, codigo)
-    if registro is None:
-        print("Codigo no encontrado")
-    else:
-        print("Texto original:", registro[4])
-        contenido_a_reemplazar = input("Ingrese la palabra o expresión a reemplazar: ")
-        nuevo_contenido = input("Ingrese el nuevo contenido: ")
-        texto_transformado = utilidades.capitalizar_texto(
-            utilidades.normalizar_texto(registro[4])
-            .replace(
-                utilidades.normalizar_texto(contenido_a_reemplazar),
-                utilidades.normalizar_texto(nuevo_contenido)))
-        print("Texto original:", registro[4])
-        print("Texto transformado:", texto_transformado)
-        registro[4] = texto_transformado
-        index = matriz_peliculas.index(registro)
-        matriz_peliculas[index] = registro
+ejecutar_programa()
