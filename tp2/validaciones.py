@@ -27,3 +27,20 @@ def solicitar_genero_valido(generos_disponibles):
         opcion_str = input("Seleccione el número de género: ")
 
     return generos_disponibles[int(opcion_str) - 1]
+
+
+def solicitar_texto_no_vacio(mensaje):
+    texto = input(mensaje)
+    while texto.strip() == "":
+        print("Debe ingresar un texto válido.")
+        texto = input(mensaje)
+    return texto
+
+
+def solicitar_cantidad_caracteres(longitud_maxima):
+    mensaje = f"Ingrese la cantidad de caracteres a mostrar (1 a {longitud_maxima}): "
+    cantidad_str = input(mensaje)
+    while not (cantidad_str.isdigit() and 1 <= int(cantidad_str) <= longitud_maxima):
+        print("Cantidad inválida.")
+        cantidad_str = input(mensaje)
+    return int(cantidad_str)
