@@ -1,5 +1,5 @@
 """
-Módulo encargado de la presentación tabular de los registros.
+Módulo encargado de la presentación tabular e individual de los registros.
 """
 
 
@@ -23,3 +23,11 @@ def mostrar_tabla(matriz):
         resena_abreviada = abreviar_texto(registro[4], 47)
         fila = f"{codigo:<8}{titulo:<26}{genero:<17}{puntuacion:<12}{resena_abreviada:<50}"
         print(fila)
+
+
+def mostrar_registro_completo(registro):
+    print(f"\nCódigo: {registro[0]}")
+    print(f"Título: {registro[1]}")
+    print(f"Género: {registro[2]}")
+    print(f"Puntuación: {registro[3]}")
+    print(f"Reseña: {registro[4]}")
